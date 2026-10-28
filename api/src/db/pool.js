@@ -10,11 +10,14 @@ let pool = null;
 let lastHealth = { ok: false, checkedAt: null, error: null };
 
 function buildPoolConfig() {
+  const isSsl = env.db.ssl || (env.db.url && (env.db.url.includes('ssl') || env.db.url.includes('ssl-mode')));
+  const ssl = isSsl ? { rejectUnauthorized: false } : undefined;
+
   if (env.db.url) {
     // mysql2 supports connection URI in some versions; prefer explicit fields when possible
     try {
       const u = new URL(env.db.url);
-      return {
+      const conf = {
         host: u.hostname,
         port: Number(u.port) || 3306,
         user: decodeURIComponent(u.username),
@@ -24,12 +27,14 @@ function buildPoolConfig() {
         connectionLimit: env.db.connectionLimit,
         enableKeepAlive: true,
       };
+      if (ssl) conf.ssl = ssl;
+      return conf;
     } catch {
       // fall through to discrete fields
     }
   }
 
-  return {
+  const conf = {
     host: env.db.host,
     port: env.db.port,
     user: env.db.user,
@@ -39,6 +44,8 @@ function buildPoolConfig() {
     connectionLimit: env.db.connectionLimit,
     enableKeepAlive: true,
   };
+  if (ssl) conf.ssl = ssl;
+  return conf;
 }
 
 /**

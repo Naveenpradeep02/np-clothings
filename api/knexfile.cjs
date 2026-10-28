@@ -9,27 +9,34 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
 function connectionFromEnv() {
+  const isSsl = process.env.DB_SSL === 'true' || (process.env.DATABASE_URL && process.env.DATABASE_URL.includes('ssl'));
+  const ssl = isSsl ? { rejectUnauthorized: false } : undefined;
+
   if (process.env.DATABASE_URL) {
     try {
       const u = new URL(process.env.DATABASE_URL);
-      return {
+      const conf = {
         host: u.hostname,
         port: Number(u.port) || 3306,
         user: decodeURIComponent(u.username),
         password: decodeURIComponent(u.password),
         database: u.pathname.replace(/^\//, ''),
       };
+      if (ssl) conf.ssl = ssl;
+      return conf;
     } catch {
       // fall through
     }
   }
-  return {
+  const conf = {
     host: process.env.DB_HOST || '127.0.0.1',
     port: Number(process.env.DB_PORT) || 3306,
     user: process.env.DB_USER || 'aurea',
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_NAME || 'aurea_commerce',
   };
+  if (ssl) conf.ssl = ssl;
+  return conf;
 }
 
 const shared = {

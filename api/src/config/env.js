@@ -64,6 +64,8 @@ const env = {
     database: str('DB_NAME', 'aurea_commerce'),
     // Optional full URL override
     url: str('DATABASE_URL'),
+    // SSL (required for hosted DBs like Aiven, AWS RDS)
+    ssl: bool('DB_SSL', false),
     // Pool
     connectionLimit: num('DB_POOL_LIMIT', 10),
     // If false, API boots even when DB is unreachable (dev convenience)

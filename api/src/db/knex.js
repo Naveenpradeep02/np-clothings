@@ -8,27 +8,34 @@ import env from '../config/env.js';
 import logger from '../lib/logger.js';
 
 function connectionConfig() {
+  const isSsl = env.db.ssl || (env.db.url && (env.db.url.includes('ssl') || env.db.url.includes('ssl-mode')));
+  const ssl = isSsl ? { rejectUnauthorized: false } : undefined;
+
   if (env.db.url) {
     try {
       const u = new URL(env.db.url);
-      return {
+      const conf = {
         host: u.hostname,
         port: Number(u.port) || 3306,
         user: decodeURIComponent(u.username),
         password: decodeURIComponent(u.password),
         database: u.pathname.replace(/^\//, ''),
       };
+      if (ssl) conf.ssl = ssl;
+      return conf;
     } catch {
       /* fall through */
     }
   }
-  return {
+  const conf = {
     host: env.db.host,
     port: env.db.port,
     user: env.db.user,
     password: env.db.password,
     database: env.db.database,
   };
+  if (ssl) conf.ssl = ssl;
+  return conf;
 }
 
 const db = knex({
