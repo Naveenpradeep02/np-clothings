@@ -1,0 +1,60 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: aurea_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: aurea_commerce
+      MYSQL_USER: aurea_user
+      MYSQL_PASSWORD: aurea_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: aurea_api
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      NODE_ENV: production
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: aurea_user
+      DB_PASSWORD: aurea_password
+      DB_NAME: aurea_commerce
+      SESSION_SECRET: aurea_production_secure_secret_key_2026
+    depends_on:
+      - db
+
+  customer-web:
+    build:
+      context: ./customer-web
+      dockerfile: Dockerfile
+    container_name: aurea_customer_web
+    restart: always
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+  admin-web:
+    build:
+      context: ./admin-web
+      dockerfile: Dockerfile
+    container_name: aurea_admin_web
+    restart: always
+    ports:
+      - "5174:80"
+    depends_on:
+      - api
+
+volumes:
+  mysql_data:
+

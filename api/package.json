@@ -1,0 +1,33 @@
+{
+  "name": "@aurea/api",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/app.js",
+    "start": "node src/app.js",
+    "build": "echo \"API is plain Node \u2014 no build step\"",
+    "lint": "echo \"Lint pending\"",
+    "db:migrate": "knex --knexfile knexfile.cjs migrate:latest",
+    "db:migrate:rollback": "knex --knexfile knexfile.cjs migrate:rollback",
+    "db:migrate:status": "knex --knexfile knexfile.cjs migrate:status",
+    "db:seed": "knex --knexfile knexfile.cjs seed:run",
+    "db:reset": "knex --knexfile knexfile.cjs migrate:rollback --all && knex --knexfile knexfile.cjs migrate:latest && knex --knexfile knexfile.cjs seed:run",
+    "test": "node --test src/tests/unit/**/*.test.js",
+    "test:unit": "node --test src/tests/unit/**/*.test.js",
+    "test:integration": "node --test src/tests/integration/**/*.test.js",
+    "test:all": "node --test src/tests/**/*.test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "knex": "^3.1.0",
+    "mysql2": "^3.12.0",
+    "firebase-admin": "^13.0.2"
+  },
+  "optionalDependencies": {
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0"
+  }
+}
