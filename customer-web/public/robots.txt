@@ -5,3 +5,4 @@ Disallow: /cart
 Disallow: /login
 
 Sitemap: https://npclothings.com/sitemap.xml
+

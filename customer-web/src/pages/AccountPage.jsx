@@ -1,7 +1,7 @@
-import { Link, Navigate } from 'react-router-dom';
-import { useAuth } from '../auth/AuthContext';
-import Layout from '../components/Layout';
-import Seo from '../components/Seo';
+import { Link, Navigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
+import Layout from "../components/Layout";
+import Seo from "../components/Seo";
 import {
   ShoppingBag,
   Heart,
@@ -13,7 +13,7 @@ import {
   ShieldCheck,
   Scissors,
   Phone,
-} from 'lucide-react';
+} from "lucide-react";
 
 export default function AccountPage() {
   const { user, loading, logout } = useAuth();
@@ -31,32 +31,32 @@ export default function AccountPage() {
   }
 
   if (!user) {
-    return <Navigate to="/login" replace state={{ from: '/account' }} />;
+    return <Navigate to="/login" replace state={{ from: "/account" }} />;
   }
 
   const displayName =
     user.profile?.display_name ||
     user.profile?.first_name ||
-    user.email?.split('@')[0] ||
-    'Client';
+    user.email?.split("@")[0] ||
+    "Client";
 
   const memberLinks = [
     {
-      to: '/account/orders',
-      label: 'Bespoke Orders',
-      desc: 'Track single-needle tailoring & shipping transit',
+      to: "/account/orders",
+      label: "Bespoke Orders",
+      desc: "Track single-needle tailoring & shipping transit",
       icon: ShoppingBag,
     },
     {
-      to: '/account/wishlist',
-      label: 'Curated Wishlist',
-      desc: 'Saved fabrics, silhouettes & future capsules',
+      to: "/account/wishlist",
+      label: "Curated Wishlist",
+      desc: "Saved fabrics, silhouettes & future capsules",
       icon: Heart,
     },
     {
-      to: '/account/addresses',
-      label: 'Delivery Addresses',
-      desc: 'Manage verified doorstep delivery destinations',
+      to: "/account/addresses",
+      label: "Delivery Addresses",
+      desc: "Manage verified doorstep delivery destinations",
       icon: MapPin,
     },
   ];
@@ -80,7 +80,9 @@ export default function AccountPage() {
                   Atelier Member
                 </span>
               </div>
-              <p className="text-xs text-stone-500 font-light mt-1">{user.email}</p>
+              <p className="text-xs text-stone-500 font-light mt-1">
+                {user.email}
+              </p>
             </div>
           </div>
 
@@ -117,7 +119,9 @@ export default function AccountPage() {
                 </div>
 
                 <div className="pt-6 flex items-center gap-1.5 text-xs font-medium text-stone-900 group-hover:gap-2.5 transition-all">
-                  <span className="uppercase tracking-widest text-[11px]">View Details</span>
+                  <span className="uppercase tracking-widest text-[11px]">
+                    View Details
+                  </span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#c9a96e]" />
                 </div>
               </Link>
@@ -135,7 +139,8 @@ export default function AccountPage() {
               </h4>
             </div>
             <p className="text-xs text-stone-600 font-light leading-relaxed">
-              Every shirt purchased through your profile includes complimentary alterations within 7 days of package delivery.
+              Every shirt purchased through your profile includes complimentary
+              alterations within 7 days of package delivery.
             </p>
             <Link
               to="/shipping"
@@ -153,7 +158,8 @@ export default function AccountPage() {
               </h4>
             </div>
             <p className="text-xs text-stone-400 font-light leading-relaxed">
-              Need custom measurements, wedding party consultations, or fabric swatches? Contact our stylists directly.
+              Need custom measurements, wedding party consultations, or fabric
+              swatches? Contact our stylists directly.
             </p>
             <a
               href="https://wa.me/918870686660"
