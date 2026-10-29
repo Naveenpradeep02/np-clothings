@@ -4,11 +4,32 @@ import { Link } from 'react-router-dom';
 import { Truck, RotateCcw, ShieldCheck } from 'lucide-react';
 
 export default function ShippingPolicyPage() {
+    const breadcrumbJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://npclothings.com/',
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Shipping & Returns',
+                item: 'https://npclothings.com/shipping',
+            },
+        ],
+    };
+
     return (
         <Layout>
             <Seo
                 title="Shipping & Returns Policy — NP Clothings"
                 description="Pan-India insured delivery timelines, tracking, and alteration policies at NP Clothings."
+                canonical="https://npclothings.com/shipping"
+                jsonLd={breadcrumbJsonLd}
             />
             <div className="max-w-4xl mx-auto px-6 py-14 sm:py-20">
                 <div className="mb-12 border-b border-stone-200 pb-8 text-center sm:text-left">

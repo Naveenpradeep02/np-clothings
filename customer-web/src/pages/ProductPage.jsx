@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
+import Seo from '../components/Seo';
 import { fetchProduct, resolveVariant, fetchProductReviews, fetchProductRecommendations, submitProductReview, trackEvent, ApiError, addToCart, addToWishlist, } from '../services/api';
 import { Eye, Star, Shirt, CircleDot, Layers, Scissors, RefreshCw, Search, Tag, Check, ShoppingBag, Heart } from 'lucide-react';
 
@@ -51,15 +52,57 @@ export default function ProductPage() {
     const [reviewSubmitting, setReviewSubmitting] = useState(false);
     const [reviewMessage, setReviewMessage] = useState(null);
     const [recommendations, setRecommendations] = useState([]);
-    useEffect(() => {
-        if (!product)
-            return;
-        document.title = `${product.seo_title || product.name} | AUREA`;
-        const desc = product.seo_description || product.short_description || '';
-        const meta = document.querySelector('meta[name="description"]');
-        if (meta)
-            meta.setAttribute('content', desc);
-    }, [product]);
+    const productJsonLd = useMemo(() => {
+        if (!product) return null;
+        const price = resolved?.retail_price || product.min_price || 0;
+        const primaryImg = product.images?.[0]?.url || 'https://npclothings.com/favicon.svg';
+        return [
+            {
+                '@context': 'https://schema.org',
+                '@type': 'Product',
+                name: product.name,
+                description: product.seo_description || product.short_description || product.name,
+                image: product.images?.map((im) => im.url) || [primaryImg],
+                brand: {
+                    '@type': 'Brand',
+                    name: product.brand_name || 'NP Clothings',
+                },
+                offers: {
+                    '@type': 'Offer',
+                    url: `https://npclothings.com/product/${product.slug || product.id}`,
+                    priceCurrency: 'INR',
+                    price: Number(price),
+                    availability: resolved && resolved.stock_quantity === 0
+                        ? 'https://schema.org/OutOfStock'
+                        : 'https://schema.org/InStock',
+                },
+            },
+            {
+                '@context': 'https://schema.org',
+                '@type': 'BreadcrumbList',
+                itemListElement: [
+                    {
+                        '@type': 'ListItem',
+                        position: 1,
+                        name: 'Home',
+                        item: 'https://npclothings.com/',
+                    },
+                    {
+                        '@type': 'ListItem',
+                        position: 2,
+                        name: 'Collections',
+                        item: 'https://npclothings.com/shop',
+                    },
+                    {
+                        '@type': 'ListItem',
+                        position: 3,
+                        name: product.name,
+                        item: `https://npclothings.com/product/${product.slug || product.id}`,
+                    },
+                ],
+            },
+        ];
+    }, [product, resolved]);
     useEffect(() => {
         if (!idOrSlug)
             return;
@@ -191,6 +234,13 @@ export default function ProductPage() {
     const inStock = available == null || available > 0;
     const images = product?.images || [];
     return (<Layout>
+      <Seo
+        title={product ? `${product.name} — Bespoke Tailored Shirt` : 'Product Details'}
+        description={product?.seo_description || product?.short_description || 'Handcrafted bespoke shirt from NP Clothings.'}
+        canonical={product ? `https://npclothings.com/product/${product.slug || product.id}` : undefined}
+        image={product?.images?.[0]?.url}
+        jsonLd={productJsonLd}
+      />
       <div className="mx-auto max-w-6xl w-full px-6 py-10">
         {loading && (<p className="text-center py-24 text-xs tracking-widest uppercase text-neutral-400">
             Crafting product view…
@@ -226,7 +276,7 @@ export default function ProductPage() {
                     </>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-neutral-400 tracking-[0.3em] text-xs">
-                      AUREA
+                      NP CLOTHINGS
                     </div>
                   )}
                 </div>
@@ -517,7 +567,7 @@ export default function ProductPage() {
                   {recommendations.slice(0, 4).map((rec, i) => (<Link key={i} to={`/product/${rec.slug || rec.id}`} className={`group reveal-on-scroll delay-${(i + 1) * 100} luxury-card-hover p-2 rounded-sm`}>
                       <div className="aspect-[3/4] bg-neutral-200 overflow-hidden mb-3 rounded-sm">
                         {rec.image_url ? (<img src={String(rec.image_url)} alt={String(rec.name)} className="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"/>) : (<div className="w-full h-full flex items-center justify-center text-neutral-400 text-xs">
-                            AUREA
+                            NP CLOTHINGS
                           </div>)}
                       </div>
                       <p className="text-sm font-light text-neutral-900 group-hover:text-[#c9a96e] transition-colors">{rec.name}</p>

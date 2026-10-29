@@ -133,7 +133,7 @@ export default function CartPage() {
     }
     const t = cart?.totals;
     return (<Layout cartCount={cart?.item_count}>
-      <Seo title="Your Cart | AUREA" noindex/>
+      <Seo title="Shopping Cart & Checkout — NP Clothings" noindex/>
       <div className="mx-auto max-w-6xl w-full px-6 py-10">
         <h1 className="text-3xl font-light tracking-wide mb-8">Shopping Cart</h1>
         {loading && <p className="text-sm text-neutral-400">Loading your selections…</p>}

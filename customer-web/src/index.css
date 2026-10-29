@@ -1,7 +1,20 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-serif: 'Cormorant Garamond', Georgia, Cambria, 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --color-gold-50: #fbf7ee;
+  --color-gold-100: #f5ebd3;
+  --color-gold-200: #ecd6a7;
+  --color-gold-400: #dcb873;
+  --color-gold-500: #c9a96e;
+  --color-gold-600: #b89558;
+  --color-gold-700: #967540;
+  --color-stone-warm: #f7f5f2;
+}
+
 :root {
-  --aurea-black: #0a0a0a;
+  --aurea-black: #0c0a09;
   --aurea-gold: #c9a96e;
   --aurea-gold-hover: #b89558;
   --aurea-off-white: #f7f5f2;
@@ -13,14 +26,11 @@ html {
 
 body {
   margin: 0;
-  font-family:
-    'Inter',
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-sans);
   color: var(--aurea-black);
-  background: #ffffff;
+  background: #f7f5f2;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ========================================================================= */
@@ -28,7 +38,7 @@ body {
 /* ========================================================================= */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(24px);
   transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
@@ -39,10 +49,9 @@ body {
   transform: translateY(0);
 }
 
-/* Horizontal slide reveals */
 .reveal-from-left {
   opacity: 0;
-  transform: translateX(-28px);
+  transform: translateX(-24px);
   transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
@@ -55,7 +64,7 @@ body {
 
 .reveal-from-right {
   opacity: 0;
-  transform: translateX(28px);
+  transform: translateX(24px);
   transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
@@ -79,7 +88,7 @@ body {
 @keyframes pageEnter {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -88,19 +97,19 @@ body {
 }
 
 .animate-page-enter {
-  animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: pageEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Card & Button Hover Micro-interactions */
 .luxury-card-hover {
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .luxury-card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.08);
 }
 
 /* Soft gold glow hover */
@@ -129,32 +138,31 @@ body {
   width: 100%;
 }
 
-/* Accessibility utilities */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+/* Accessibility & Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal-on-scroll,
+  .reveal-from-left,
+  .reveal-from-right,
+  .animate-page-enter {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  .luxury-card-hover:hover {
+    transform: none !important;
+  }
 }
-.focus\:not-sr-only:focus {
-  position: static;
-  width: auto;
-  height: auto;
-  padding: inherit;
-  margin: inherit;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
-}
+
+/* Focus styles */
 :focus-visible {
-  outline: 2px solid #78716c;
+  outline: 2px solid var(--aurea-gold);
   outline-offset: 2px;
 }
+
 img {
   max-width: 100%;
   height: auto;

@@ -14,11 +14,53 @@ export default function ContactPage() {
         setTimeout(() => setSubmitted(false), 6000);
     }
 
+    const contactJsonLd = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'ContactPage',
+            name: 'Contact Concierge — NP Clothings',
+            url: 'https://npclothings.com/contact',
+            mainEntity: {
+                '@type': 'LocalBusiness',
+                name: 'NP Clothings',
+                telephone: '+918870686660',
+                email: 'concierge@npclothings.com',
+                address: {
+                    '@type': 'PostalAddress',
+                    addressLocality: 'Tirupur',
+                    addressRegion: 'Tamil Nadu',
+                    addressCountry: 'IN',
+                },
+                openingHours: 'Mo-Sa 10:00-19:00',
+            },
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                {
+                    '@type': 'ListItem',
+                    position: 1,
+                    name: 'Home',
+                    item: 'https://npclothings.com/',
+                },
+                {
+                    '@type': 'ListItem',
+                    position: 2,
+                    name: 'Contact Concierge',
+                    item: 'https://npclothings.com/contact',
+                },
+            ],
+        },
+    ];
+
     return (
         <Layout>
             <Seo
-                title="Contact Concierge — NP Clothings"
-                description="Connect with our bespoke menswear atelier, custom tailoring styling desk, and customer support."
+                title="Client Concierge & Consultation — NP Clothings"
+                description="Connect with our bespoke menswear atelier, custom tailoring styling desk, and customer support in Tirupur."
+                canonical="https://npclothings.com/contact"
+                jsonLd={contactJsonLd}
             />
             <div className="max-w-5xl mx-auto px-6 py-14 sm:py-20">
                 <div className="mb-12 border-b border-stone-200 pb-8 text-center">

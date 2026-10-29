@@ -125,9 +125,9 @@ export default function OrderDetailPage() {
             setTicketSubmitting(false);
         }
     }
-    const whatsappMessage = encodeURIComponent(`Hello Aurea Support, I need assistance with Order #${order?.order_number}.`);
+    const whatsappMessage = encodeURIComponent(`Hello NP Clothings Concierge, I need assistance with Order #${order?.order_number}.`);
     return (<Layout>
-      <Seo title={`Order ${order?.order_number || ''} | AUREA`} noindex/>
+      <Seo title={`Order ${order?.order_number || ''} — NP Clothings`} noindex/>
       <div className="mx-auto max-w-4xl px-6 py-12">
         <Link to="/account/orders" className="text-xs tracking-widest uppercase text-neutral-400 hover:text-neutral-900 transition mb-6 inline-block">
           ← Back to Orders

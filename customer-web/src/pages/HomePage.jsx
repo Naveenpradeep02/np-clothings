@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
+import Seo from "../components/Seo";
 import { fetchHomePage, fetchStorefrontProducts } from "../services/api";
 import heroVideo from "../assets/Man_walking_and_changing_appearance_20261010142342.mp4";
 import {
@@ -143,8 +144,27 @@ export default function HomePage() {
     }
   ];
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: HOME_FAQS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+
   return (
     <Layout>
+      <Seo
+        title="NP Clothings — Quiet Luxury Menswear & Bespoke Shirts"
+        description="Handcrafted quiet luxury menswear. Signature Chinese and mandarin collar shirts tailored in pure European linen and Egyptian cotton."
+        canonical="https://npclothings.com/"
+        jsonLd={faqJsonLd}
+      />
       <div className="flex-1">
         {/* ========================================================================= */}
         {/* 1. HERO SECTION: Video Background with Smooth Text Reveal                */}

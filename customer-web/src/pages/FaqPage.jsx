@@ -64,11 +64,26 @@ export default function FaqPage() {
         setOpenIndex(openIndex === index ? -1 : index);
     }
 
+    const faqJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: FAQ_ITEMS.map((item) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: {
+                '@type': 'Answer',
+                text: item.answer,
+            },
+        })),
+    };
+
     return (
         <Layout>
             <Seo
-                title="Frequently Asked Questions — NP Clothings"
-                description="Find answers about bespoke tailoring, signature Chinese collars, linen care, sizing, and pan-India delivery."
+                title="Bespoke Guide & FAQ — NP Clothings"
+                description="Find answers about bespoke tailoring, signature Chinese collars, linen care, sizing, and complimentary alterations."
+                canonical="https://npclothings.com/faq"
+                jsonLd={faqJsonLd}
             />
             <div className="max-w-4xl mx-auto px-6 py-14 sm:py-20">
                 {/* Header */}

@@ -16,27 +16,30 @@ import ShippingPolicyPage from './pages/ShippingPolicyPage';
 import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
 import FaqPage from './pages/FaqPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
-    return (<AuthProvider>
+  return (
+    <AuthProvider>
       <Routes>
-        <Route path="/" element={<HomePage />}/>
-        <Route path="/shop" element={<ShopPage />}/>
-        <Route path="/product/:idOrSlug" element={<ProductPage />}/>
-        <Route path="/cart" element={<CartPage />}/>
-        <Route path="/login" element={<LoginPage />}/>
-        <Route path="/account" element={<AccountPage />}/>
-        <Route path="/account/orders" element={<OrdersPage />}/>
-        <Route path="/account/orders/:id" element={<OrderDetailPage />}/>
-        <Route path="/account/wishlist" element={<WishlistPage />}/>
-        <Route path="/account/addresses" element={<AddressesPage />}/>
-        <Route path="/terms" element={<TermsPage />}/>
-        <Route path="/privacy" element={<PrivacyPage />}/>
-        <Route path="/shipping" element={<ShippingPolicyPage />}/>
-        <Route path="/contact" element={<ContactPage />}/>
-        <Route path="/about" element={<AboutPage />}/>
-        <Route path="/faq" element={<FaqPage />}/>
-        <Route path="*" element={<HomePage />}/>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/product/:idOrSlug" element={<ProductPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/account" element={<AccountPage />} />
+        <Route path="/account/orders" element={<OrdersPage />} />
+        <Route path="/account/orders/:id" element={<OrderDetailPage />} />
+        <Route path="/account/wishlist" element={<WishlistPage />} />
+        <Route path="/account/addresses" element={<AddressesPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/shipping" element={<ShippingPolicyPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/faq" element={<FaqPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </AuthProvider>);
+    </AuthProvider>
+  );
 }

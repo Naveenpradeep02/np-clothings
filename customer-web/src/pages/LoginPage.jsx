@@ -85,7 +85,7 @@ export default function LoginPage() {
 
     return (
         <Layout>
-            <Seo title={tab === 'signin' ? 'Sign in' : 'Create Account'} noindex />
+            <Seo title={tab === 'signin' ? 'Sign In — NP Clothings' : 'Create Atelier Account — NP Clothings'} noindex />
             <div className="mx-auto max-w-md px-4 py-12 sm:py-16">
                 {/* Brand Header */}
                 <div className="text-center mb-8">
@@ -98,7 +98,7 @@ export default function LoginPage() {
                     <p className="mt-1 text-xs text-stone-500">
                         {tab === 'signin'
                             ? 'Sign in to access your bespoke orders, wishlist & measurements'
-                            : 'Join AUREA to experience custom-tailored luxury garments'}
+                            : 'Join NP Clothings to experience custom-tailored luxury garments'}
                     </p>
                 </div>
 

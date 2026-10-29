@@ -1,0 +1,15 @@
+{
+  "name": "NP Clothings — Quiet Luxury Menswear",
+  "short_name": "NP Clothings",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f5f2",
+  "theme_color": "#1c1917",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

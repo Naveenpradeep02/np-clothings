@@ -4,11 +4,32 @@ import { Link } from 'react-router-dom';
 import { Scissors, Sparkles, Feather } from 'lucide-react';
 
 export default function AboutPage() {
+    const breadcrumbJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+            {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://npclothings.com/',
+            },
+            {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'About Atelier',
+                item: 'https://npclothings.com/about',
+            },
+        ],
+    };
+
     return (
         <Layout>
             <Seo
-                title="About NP Clothings — The Atelier Story"
-                description="The heritage and craftsmanship behind NP Clothings, India's bespoke quiet luxury menswear atelier."
+                title="Our Heritage & The Atelier Story — NP Clothings"
+                description="The heritage and craftsmanship behind NP Clothings, India's bespoke quiet luxury menswear atelier in Tirupur."
+                canonical="https://npclothings.com/about"
+                jsonLd={breadcrumbJsonLd}
             />
             <div className="max-w-4xl mx-auto px-6 py-14 sm:py-20">
                 <div className="mb-14 text-center">
